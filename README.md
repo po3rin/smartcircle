@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/go-v1.11-blue.svg"/>
 
-Package smartcircle lets you crop a circular image out of a rectangular smartly. It will automatically determine where to crop.
+Automatically determine where to crop a circular image out of a rectangular.
 
 <img src="./src/what.png">
 
