@@ -4,7 +4,7 @@ package main
 
 import (
 	"bytes"
-	"image/png"
+	"image"
 	"reflect"
 	"syscall/js"
 	"time"
@@ -15,7 +15,7 @@ func (c *Cropper) setupOnImgLoadCb() {
 	c.onImgLoadCb = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		reader := bytes.NewReader(c.inBuf)
 		var err error
-		c.sourceImg, err = png.Decode(reader)
+		c.sourceImg, _, err = image.Decode(reader)
 		if err != nil {
 			c.log(err.Error())
 			return nil
