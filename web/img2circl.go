@@ -36,8 +36,11 @@ func New() *Cropper {
 func (c *Cropper) Start() {
 	// Setup functions
 	c.setupInitMemCb()
+
+	// setted initMemCb in setupInitMemCb
 	js.Global().Set("initMem", c.initMemCb)
 
+	// setted onImgLoadCb in setupOnImgLoadCb
 	c.setupOnImgLoadCb()
 	js.Global().Set("loadImage", c.onImgLoadCb)
 
@@ -46,7 +49,7 @@ func (c *Cropper) Start() {
 	c.onImgLoadCb.Release()
 }
 
-func (c *Cropper) ConvertImage(argStartFlag string, argEndFlag string, argLoopFlag string) {
+func (c *Cropper) ConvertImage() {
 	// sourceImg is already decoded
 
 	// Set image
@@ -72,7 +75,7 @@ func (c *Cropper) ConvertImage(argStartFlag string, argEndFlag string, argLoopFl
 // Then it sets the value to the src attribute of the target image.
 func (c *Cropper) updateImage(start time.Time) {
 	c.console.Call("log", "updateImage:", start.String())
-	c.ConvertImage("left", "right", "false")
+	c.ConvertImage()
 	out := c.outBuf.Bytes()
 	hdr := (*reflect.SliceHeader)(unsafe.Pointer(&out))
 	ptr := uintptr(unsafe.Pointer(hdr.Data))
